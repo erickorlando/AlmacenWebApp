@@ -1,0 +1,36 @@
+﻿@page "/categorias"
+<h3>Lista de Categorias</h3>
+
+@if (Categorias is null)
+{
+    <p>Cargando....</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Categorias)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Nombre</td>
+                    <td>@item.Descripcion</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="() => Editar(item.Id)"><i class="oi oi-pencil"></i></button>
+                        <button class="btn btn-danger" @onclick="() => Eliminar(item.Id)"><i class="oi oi-trash"></i></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<button class="btn btn-primary" @onclick="CrearCategoria">Crear registro</button>

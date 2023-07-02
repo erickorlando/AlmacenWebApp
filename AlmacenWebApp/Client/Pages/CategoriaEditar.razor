@@ -1,0 +1,33 @@
+﻿@page "/categorias/editar/{Id:int}"
+@inject NavigationManager NavigationManager
+@inject HttpClient HttpClient
+@using AlmacenWebApp.Shared
+@using AlmacenWebApp.Client.Shared.CategoriaComponents
+
+<h3>Editar Categoria</h3>
+
+<CategoriaEdit Categoria="Categoria" OnGrabarClick="Grabar" />
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    public Categoria Categoria { get; set; } = new Categoria();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var respuesta = await HttpClient.GetFromJsonAsync<Categoria>($"api/Categorias/{Id}");
+        if (respuesta is not null)
+        {
+            Categoria = respuesta;
+        }
+    }
+
+    private async Task Grabar()
+    {
+        await HttpClient.PutAsJsonAsync($"api/Categorias/{Id}", Categoria);
+
+        NavigationManager.NavigateTo("/categorias");
+    }
+}

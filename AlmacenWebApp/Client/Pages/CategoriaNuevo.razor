@@ -1,0 +1,38 @@
+﻿@using AlmacenWebApp.Client.Shared.CategoriaComponents
+@using AlmacenWebApp.Shared
+@using CurrieTechnologies.Razor.SweetAlert2
+@page "/categorias/crear"
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject SweetAlertService Swal
+<h3>Crear Categoria</h3>
+
+<CategoriaEdit Categoria="Categoria" OnGrabarClick="Crear" />
+
+@code {
+
+    public Categoria Categoria { get; set; } = new Categoria();
+
+
+    private async Task Crear()
+    {
+        try
+        {
+            var response = await HttpClient.PostAsJsonAsync("api/Categorias", Categoria);
+
+            if (response.IsSuccessStatusCode)
+            {
+                NavigationManager.NavigateTo("/categorias");
+            }
+            else
+            {
+                throw new ApplicationException(response.ReasonPhrase);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            await Swal.FireAsync(title: "Error en la aplicacion", message: ex.Message, icon: SweetAlertIcon.Error);
+        }
+    }
+}

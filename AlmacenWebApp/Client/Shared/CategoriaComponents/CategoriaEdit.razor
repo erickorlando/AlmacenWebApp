@@ -1,0 +1,32 @@
+﻿@using AlmacenWebApp.Shared
+
+<EditForm Model="Categoria" OnSubmit="Grabar">
+    <div class="row row-cols-1 row-cols-md-2 g-2">
+        <div class="col">
+            <div class="mb-3 row">
+                <label for="nombre" class="form-label">Nombres:</label>
+                <input type="text" class="form-control col-sm-6" @bind-value="Categoria.Nombre" id="nombre" />
+            </div>
+            <div class="mb-3 row">
+                <label for="nombre" class="form-label">Descripcion:</label>
+                <input type="text" class="form-control col-sm-6" @bind-value="Categoria.Descripcion" id="descripcion" />
+            </div>
+            <button class="btn btn-primary" type="submit">Grabar</button>
+            <button class="btn btn-danger" type="reset">Limpiar</button>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public Categoria Categoria { get; set; } = new Categoria();
+
+    [Parameter]
+    public EventCallback OnGrabarClick { get; set; }
+
+    private void Grabar()
+    {
+        OnGrabarClick.InvokeAsync();
+    }
+}
