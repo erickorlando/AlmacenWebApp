@@ -12,6 +12,9 @@ public partial class ProductoEdit
     [Parameter]
     public ICollection<CategoriaResponse> Categorias { get; set; } = new List<CategoriaResponse>();
 
+    [Parameter] 
+    public ICollection<MarcaResponse> Marcas { get; set; } = new List<MarcaResponse>();
+
     [Parameter]
     public EventCallback GuardarCallback { get; set; }
 

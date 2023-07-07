@@ -21,6 +21,7 @@ public class ProductoServicio
                 Id = p.Id,
                 CategoriaId = p.CategoriaId,
                 Categoria = p.Categoria.Nombre,
+                Marca = p.Marca.Descripcion,
                 Codigo = p.Codigo,
                 Nombre = p.Nombre,
                 PrecioUnitario = p.PrecioUnitario
@@ -33,6 +34,7 @@ public class ProductoServicio
         var registro = new Producto()
         {
             CategoriaId = producto.CategoriaId,
+            MarcaId = producto.MarcaId,
             Nombre = producto.Nombre,
             Codigo = producto.Codigo,
             PrecioUnitario = producto.PrecioUnitario
@@ -51,6 +53,7 @@ public class ProductoServicio
             registroExistente.Codigo = producto.Codigo;
             registroExistente.PrecioUnitario = producto.PrecioUnitario;
             registroExistente.CategoriaId = producto.CategoriaId;
+            registroExistente.MarcaId = producto.MarcaId;
 
             _context.SaveChanges(); // Confirmar los cambios
         }

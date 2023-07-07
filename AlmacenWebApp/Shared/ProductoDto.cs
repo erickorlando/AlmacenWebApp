@@ -14,4 +14,6 @@ public class ProductoDto
     [StringLength(20)]
     public string Codigo { get; set; } = default!;
     public decimal PrecioUnitario { get; set; }
+
+    public int MarcaId { get; set; }
 }

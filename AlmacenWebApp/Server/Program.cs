@@ -15,6 +15,7 @@ builder.Services.AddDbContext<AlmacenWebAppDbContext>(options =>
 
 builder.Services.AddTransient<CategoriaServicio>();
 builder.Services.AddTransient<ProductoServicio>();
+builder.Services.AddTransient<MarcaServicio>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -44,5 +45,8 @@ app.UseRouting();
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
+
+// Minimal API
+app.MapGet("api/Marcas", (MarcaServicio servicio) => Results.Ok(servicio.List()));
 
 app.Run();

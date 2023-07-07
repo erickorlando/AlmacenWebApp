@@ -8,4 +8,5 @@ public class ProductoResponse
     public string Nombre { get; set; } = default!;
     public string Codigo { get; set; } = default!;
     public decimal PrecioUnitario { get; set; }
+    public string Marca { get; set; } = default!;
 }

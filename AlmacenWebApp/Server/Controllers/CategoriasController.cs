@@ -1,6 +1,5 @@
 ﻿using AlmacenWebApp.Entidades;
 using AlmacenWebApp.Server.Servicios;
-using AlmacenWebApp.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlmacenWebApp.Server.Controllers

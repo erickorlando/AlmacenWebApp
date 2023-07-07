@@ -6,18 +6,23 @@
 @inject SweetAlertService Swal
 <h3>Crear Producto</h3>
 
-<ProductoEdit Producto="Producto" Categorias="Categorias" GuardarCallback="Crear" />
+<ProductoEdit Producto="Producto" Categorias="Categorias" Marcas="Marcas" GuardarCallback="Crear" />
 
 @code {
 
     public ProductoDto Producto { get; set; } = new ProductoDto();
     public ICollection<CategoriaResponse> Categorias { get; set; } = new List<CategoriaResponse>();
+    public ICollection<MarcaResponse> Marcas { get; set; } = new List<MarcaResponse>();
 
     protected override async Task OnInitializedAsync()
     {
         var responseCategorias = await HttpClient.GetFromJsonAsync<ICollection<CategoriaResponse>>("api/Categorias");
         if (responseCategorias is not null)
             Categorias = responseCategorias;
+
+        var responseMarcas = await HttpClient.GetFromJsonAsync<ICollection<MarcaResponse>>("api/Marcas");
+        if (responseMarcas is not null)
+            Marcas = responseMarcas;
     }
 
     private async Task Crear()

@@ -13,6 +13,7 @@ public class AlmacenWebAppDbContext : DbContext
 
     public DbSet<Categoria> Categorias { get; set; } = null!;
     public DbSet<Producto> Productos { get; set; } = null!;
+    public DbSet<Marca> Marcas { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -38,6 +39,19 @@ public class AlmacenWebAppDbContext : DbContext
             .Property(p => p.PrecioUnitario)
             .HasPrecision(11, 2);
 
+        modelBuilder.Entity<Marca>()
+            .Property(p => p.Descripcion)
+            .HasMaxLength(150);
 
+        // Inicializamos una lista por default de Marcas
+        modelBuilder.Entity<Marca>()
+            .HasData(new List<Marca>()
+            {
+                new() { Id = 1, Descripcion = "Samsung" },
+                new() { Id = 2, Descripcion = "LG" },
+                new() { Id = 3, Descripcion = "Xiaomi" },
+                new() { Id = 4, Descripcion = "Apple" },
+                new() { Id = 5, Descripcion = "Honor" },
+            });
     }
 }
