@@ -16,4 +16,13 @@ public class ProductoDto
     public decimal PrecioUnitario { get; set; }
 
     public int MarcaId { get; set; }
+
+    #region Esto solo sirve para el frontend
+
+    public string? Base64Imagen { get; set; }
+    public string? NombreArchivo { get; set; }
+
+    #endregion
+
+    public string? UrlImagen { get; set; }
 }

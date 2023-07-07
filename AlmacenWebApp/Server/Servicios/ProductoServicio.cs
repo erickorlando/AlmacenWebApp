@@ -7,10 +7,12 @@ namespace AlmacenWebApp.Server.Servicios;
 public class ProductoServicio
 {
     private readonly AlmacenWebAppDbContext _context;
+    private readonly IFileUploader _fileUploader;
 
-    public ProductoServicio(AlmacenWebAppDbContext context)
+    public ProductoServicio(AlmacenWebAppDbContext context, IFileUploader fileUploader)
     {
         _context = context;
+        _fileUploader = fileUploader;
     }
 
     public List<ProductoResponse> Listar()
@@ -29,7 +31,7 @@ public class ProductoServicio
             .ToList();
     }
 
-    public void Agregar(ProductoDto producto)
+    public async Task Agregar(ProductoDto producto)
     {
         var registro = new Producto()
         {
@@ -39,12 +41,15 @@ public class ProductoServicio
             Codigo = producto.Codigo,
             PrecioUnitario = producto.PrecioUnitario
         };
+
+        registro.UrlImagen = await _fileUploader.SubirArchivo(producto.Base64Imagen, producto.NombreArchivo);
+
         _context.Productos.Add(registro);
 
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
 
-    public void Actualizar(int id, ProductoDto producto)
+    public async Task Actualizar(int id, ProductoDto producto)
     {
         var registroExistente = ObtenerPorId(id);
         if (registroExistente != null)
@@ -55,7 +60,13 @@ public class ProductoServicio
             registroExistente.CategoriaId = producto.CategoriaId;
             registroExistente.MarcaId = producto.MarcaId;
 
-            _context.SaveChanges(); // Confirmar los cambios
+            if (!string.IsNullOrWhiteSpace(producto.NombreArchivo))
+            {
+                registroExistente.UrlImagen =
+                    await _fileUploader.SubirArchivo(producto.Base64Imagen, producto.NombreArchivo);
+            }
+
+            await _context.SaveChangesAsync(); // Confirmar los cambios
         }
     }
 

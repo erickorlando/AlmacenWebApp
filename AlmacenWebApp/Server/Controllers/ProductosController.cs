@@ -22,11 +22,11 @@ namespace AlmacenWebApp.Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult Crear(ProductoDto producto)
+        public async Task<IActionResult> Crear(ProductoDto producto)
         {
             try
             {
-                _servicio.Agregar(producto);
+                await _servicio.Agregar(producto);
                 return Ok();
             }
             catch (Exception)
@@ -36,9 +36,9 @@ namespace AlmacenWebApp.Server.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public IActionResult Actualizar(int id, ProductoDto producto)
+        public async Task<IActionResult> Actualizar(int id, ProductoDto producto)
         {
-            _servicio.Actualizar(id, producto);
+            await _servicio.Actualizar(id, producto);
             return Ok();
         }
 

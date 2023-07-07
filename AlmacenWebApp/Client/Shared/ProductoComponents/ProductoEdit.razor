@@ -1,4 +1,6 @@
-﻿<h3>Producto</h3>
+﻿@using CurrieTechnologies.Razor.SweetAlert2
+@inject SweetAlertService Swal
+<h3>Producto</h3>
 
 <EditForm Model="Producto" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
@@ -52,6 +54,29 @@
             <ValidationMessage For="@(() => Producto.PrecioUnitario)"></ValidationMessage>
         </div>
     </div>
+    <div class="card">
+        <div class="card-body">
+            @if (Producto.Base64Imagen is not null)
+            {
+                <div style="margin:10px">
+                    <img src="data:image/jpeg;base64,@Producto.Base64Imagen" alt="@Producto.Nombre" style="width: 300px"/>
+                </div>
+            }
+            else
+            {
+                <img src="@Producto.UrlImagen" alt="@Producto.Nombre" style="width: 300px"/>    
+            }
+        </div>
+        <div class="card-footer">
+            <div>
+                <InputFile id="file" accept="image/png, image/jpeg, .webp" 
+                           OnChange="OnFileUploaded" 
+                           style="display: none"/>
+                <label for="file" class="btn btn-warning"><span class="oi oi-camera-slr"></span>Imagen</label>
+            </div>
+        </div>
+    </div>
+
     
    
     <button type="submit" class="btn btn-primary"><i class="oi oi-plus"></i> Guardar</button>
