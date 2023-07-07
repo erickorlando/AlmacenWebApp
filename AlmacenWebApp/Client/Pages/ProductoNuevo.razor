@@ -1,0 +1,44 @@
+﻿@using AlmacenWebApp.Shared
+@using CurrieTechnologies.Razor.SweetAlert2
+@page "/productos/crear"
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject SweetAlertService Swal
+<h3>Crear Producto</h3>
+
+<ProductoEdit Producto="Producto" Categorias="Categorias" GuardarCallback="Crear" />
+
+@code {
+
+    public ProductoDto Producto { get; set; } = new ProductoDto();
+    public ICollection<CategoriaResponse> Categorias { get; set; } = new List<CategoriaResponse>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var responseCategorias = await HttpClient.GetFromJsonAsync<ICollection<CategoriaResponse>>("api/Categorias");
+        if (responseCategorias is not null)
+            Categorias = responseCategorias;
+    }
+
+    private async Task Crear()
+    {
+        try
+        {
+            var response = await HttpClient.PostAsJsonAsync("api/productos", Producto);
+
+            if (response.IsSuccessStatusCode)
+            {
+                NavigationManager.NavigateTo("/productos");
+            }
+            else
+            {
+                throw new ApplicationException(response.ReasonPhrase);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            await Swal.FireAsync(title: "Error en la aplicacion", message: ex.Message, icon: SweetAlertIcon.Error);
+        }
+    }
+}

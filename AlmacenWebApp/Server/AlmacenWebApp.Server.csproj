@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\AlmacenWebApp.Entidades\AlmacenWebApp.Entidades.csproj" />
     <ProjectReference Include="..\Client\AlmacenWebApp.Client.csproj" />
     <ProjectReference Include="..\Shared\AlmacenWebApp.Shared.csproj" />
   </ItemGroup>

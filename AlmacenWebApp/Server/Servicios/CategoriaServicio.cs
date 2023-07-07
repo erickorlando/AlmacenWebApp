@@ -1,4 +1,5 @@
-﻿using AlmacenWebApp.Server.Datos;
+﻿using AlmacenWebApp.Entidades;
+using AlmacenWebApp.Server.Datos;
 using AlmacenWebApp.Shared;
 
 namespace AlmacenWebApp.Server.Servicios;

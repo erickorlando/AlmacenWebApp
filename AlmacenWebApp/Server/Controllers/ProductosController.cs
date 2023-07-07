@@ -1,5 +1,4 @@
-﻿using AlmacenWebApp.Entidades;
-using AlmacenWebApp.Server.Servicios;
+﻿using AlmacenWebApp.Server.Servicios;
 using AlmacenWebApp.Shared;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,11 +6,11 @@ namespace AlmacenWebApp.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriasController : ControllerBase
+    public class ProductosController : ControllerBase
     {
-        private readonly CategoriaServicio _servicio;
+        private readonly ProductoServicio _servicio;
 
-        public CategoriasController(CategoriaServicio servicio)
+        public ProductosController(ProductoServicio servicio)
         {
             _servicio = servicio;
         }
@@ -23,11 +22,11 @@ namespace AlmacenWebApp.Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult Crear(Categoria categoria)
+        public IActionResult Crear(ProductoDto producto)
         {
             try
             {
-                _servicio.Agregar(categoria);
+                _servicio.Agregar(producto);
                 return Ok();
             }
             catch (Exception)
@@ -37,9 +36,9 @@ namespace AlmacenWebApp.Server.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public IActionResult Actualizar(int id, Categoria categoria)
+        public IActionResult Actualizar(int id, ProductoDto producto)
         {
-            _servicio.Actualizar(id, categoria);
+            _servicio.Actualizar(id, producto);
             return Ok();
         }
 

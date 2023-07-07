@@ -1,0 +1,38 @@
+﻿@page "/productos/editar/{Id:int}"
+@inject NavigationManager NavigationManager
+@inject HttpClient HttpClient
+@using AlmacenWebApp.Shared
+
+<h3>Editar producto</h3>
+
+<ProductoEdit Producto="Producto" Categorias="Categorias" GuardarCallback="Grabar" />
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    public ProductoDto Producto { get; set; } = new ProductoDto();
+
+    public ICollection<CategoriaResponse> Categorias { get; set; } = new List<CategoriaResponse>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var respuesta = await HttpClient.GetFromJsonAsync<ProductoDto>($"api/productos/{Id}");
+        if (respuesta is not null)
+        {
+            Producto = respuesta;
+        }
+
+        var responseCategorias = await HttpClient.GetFromJsonAsync<ICollection<CategoriaResponse>>("api/Categorias");
+        if (responseCategorias is not null)
+            Categorias = responseCategorias;
+    }
+
+    private async Task Grabar()
+    {
+        await HttpClient.PutAsJsonAsync($"api/productos/{Id}", Producto);
+
+        NavigationManager.NavigateTo("/productos");
+    }
+}

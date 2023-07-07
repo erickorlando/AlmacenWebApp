@@ -1,4 +1,4 @@
-﻿namespace AlmacenWebApp.Shared
+﻿namespace AlmacenWebApp.Entidades
 {
     public class Categoria
     {

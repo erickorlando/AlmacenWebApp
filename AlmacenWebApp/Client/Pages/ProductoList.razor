@@ -1,0 +1,41 @@
+﻿@page "/productos"
+<h3>Productos</h3>
+
+@if (Productos is null)
+{
+    <p>Cargando....</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Codigo</th>
+            <th>Precio Unitario</th>
+            <th>Categoria</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Productos)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Nombre</td>
+                <td>@item.Codigo</td>
+                <td>@item.PrecioUnitario</td>
+                <td>@item.Categoria</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="() => Editar(item.Id)"><i class="oi oi-pencil"></i></button>
+                    <button class="btn btn-danger" @onclick="() => Eliminar(item.Id)"><i class="oi oi-trash"></i></button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+<button class="btn btn-primary" @onclick="Crear">Crear registro</button>
+<button class="btn btn-primary" @onclick="CargarDatos">Volver a cargar</button>

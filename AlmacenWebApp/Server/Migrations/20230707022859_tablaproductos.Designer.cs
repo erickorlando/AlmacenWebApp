@@ -3,6 +3,7 @@ using AlmacenWebApp.Server.Datos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlmacenWebApp.Server.Migrations
 {
     [DbContext(typeof(AlmacenWebAppDbContext))]
-    partial class AlmacenWebAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230707022859_tablaproductos")]
+    partial class tablaproductos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

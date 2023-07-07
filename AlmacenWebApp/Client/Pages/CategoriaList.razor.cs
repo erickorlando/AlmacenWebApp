@@ -1,18 +1,18 @@
 ﻿using AlmacenWebApp.Shared;
 using CurrieTechnologies.Razor.SweetAlert2;
-using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components;
+using System.Net.Http.Json;
 
 namespace AlmacenWebApp.Client.Pages
 {
     public partial class CategoriaList
     {
 
-        [Inject] public HttpClient HttpClient { get; set; }
-        [Inject] public NavigationManager NavigationManager { get; set; }
-        [Inject] public SweetAlertService Swal { get; set; }
+        [Inject] public HttpClient HttpClient { get; set; } = default!;
+        [Inject] public NavigationManager NavigationManager { get; set; } = default!;
+        [Inject] public SweetAlertService Swal { get; set; } = default!;
 
-        public List<Categoria>? Categorias { get; set; }
+        public List<CategoriaResponse>? Categorias { get; set; }
 
 
         protected override async Task OnInitializedAsync()
@@ -22,7 +22,7 @@ namespace AlmacenWebApp.Client.Pages
 
         private async Task CargarDatos()
         {
-            Categorias = await HttpClient.GetFromJsonAsync<List<Categoria>>("api/Categorias");
+            Categorias = await HttpClient.GetFromJsonAsync<List<CategoriaResponse>>("api/Categorias");
         }
 
         private void CrearCategoria()

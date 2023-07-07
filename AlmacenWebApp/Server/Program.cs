@@ -14,6 +14,7 @@ builder.Services.AddDbContext<AlmacenWebAppDbContext>(options =>
 //builder.Services.AddSingleton<CategoriaServicio>();
 
 builder.Services.AddTransient<CategoriaServicio>();
+builder.Services.AddTransient<ProductoServicio>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

@@ -16,4 +16,22 @@
     <ProjectReference Include="..\Shared\AlmacenWebApp.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Shared\ProductoComponents\ProductoEdit.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\ProductoEditar.razor" />
+    <_ContentIncludedByDefault Remove="Pages\ProductoList.razor" />
+    <_ContentIncludedByDefault Remove="Shared\ProductoComponents\ProductoEdit.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\ProductoList.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\ProductoEditar.razor" />
+  </ItemGroup>
+
 </Project>
