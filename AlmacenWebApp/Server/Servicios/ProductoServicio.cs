@@ -26,7 +26,9 @@ public class ProductoServicio
                 Marca = p.Marca.Descripcion,
                 Codigo = p.Codigo,
                 Nombre = p.Nombre,
-                PrecioUnitario = p.PrecioUnitario
+                PrecioUnitario = p.PrecioUnitario,
+                UrlImagen = p.UrlImagen,
+                Descripcion = p.Descripcion
             })
             .ToList();
     }
@@ -39,7 +41,8 @@ public class ProductoServicio
             MarcaId = producto.MarcaId,
             Nombre = producto.Nombre,
             Codigo = producto.Codigo,
-            PrecioUnitario = producto.PrecioUnitario
+            PrecioUnitario = producto.PrecioUnitario,
+            Descripcion = producto.Descripcion
         };
 
         registro.UrlImagen = await _fileUploader.SubirArchivo(producto.Base64Imagen, producto.NombreArchivo);
@@ -59,6 +62,7 @@ public class ProductoServicio
             registroExistente.PrecioUnitario = producto.PrecioUnitario;
             registroExistente.CategoriaId = producto.CategoriaId;
             registroExistente.MarcaId = producto.MarcaId;
+            registroExistente.Descripcion = producto.Descripcion;
 
             if (!string.IsNullOrWhiteSpace(producto.NombreArchivo))
             {

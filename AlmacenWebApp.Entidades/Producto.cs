@@ -13,4 +13,6 @@ public class Producto
     public string Codigo { get; set; } = default!;
     public decimal PrecioUnitario { get; set; }
     public string? UrlImagen { get; set; }
+
+    public string? Descripcion { get; set; }
 }

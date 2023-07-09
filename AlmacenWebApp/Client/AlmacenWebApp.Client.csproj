@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazored.Toast" Version="4.1.0" />
     <PackageReference Include="CurrieTechnologies.Razor.SweetAlert2" Version="5.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.7" PrivateAssets="all" />
@@ -23,6 +24,7 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Pages\ProductoEditar.razor" />
     <_ContentIncludedByDefault Remove="Pages\ProductoList.razor" />
+    <_ContentIncludedByDefault Remove="Pages\VentasList.razor" />
     <_ContentIncludedByDefault Remove="Shared\ProductoComponents\ProductoEdit.razor" />
   </ItemGroup>
 
@@ -32,6 +34,10 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Pages\ProductoEditar.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\VentasList.razor" />
   </ItemGroup>
 
 </Project>

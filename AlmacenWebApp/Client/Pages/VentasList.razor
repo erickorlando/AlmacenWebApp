@@ -1,0 +1,54 @@
+﻿@page "/ventas"
+@using AlmacenWebApp.Shared
+@inject HttpClient HttpClient
+
+<h3>Ventas realizadas</h3>
+
+@if (Ventas is null)
+{
+    <p class="alert alert-warning">Sin datos para mostrar</p>
+}
+else
+{
+    <table class="table table-secondary table-bordered table-hover">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Fecha Venta</td>
+                <td>Nro. Factura</td>
+                <td>Producto</td>
+                <td>Precio</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Ventas)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.FechaVenta.ToString("dd 'de ' MMMM 'de ' yyyy")</td>
+                    <td>@item.NumeroFactura</td>
+                    <td>@item.Producto</td>
+                    <td>@item.Precio</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button class="btn btn-primary" @onclick="CargarLista">Volver a cargar</button>
+}
+
+@code {
+
+    public ICollection<VentaResponse>? Ventas { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarLista();
+    }
+
+    private async Task CargarLista()
+    {
+        Ventas = await HttpClient.GetFromJsonAsync<ICollection<VentaResponse>>("api/Ventas");
+    }
+
+}

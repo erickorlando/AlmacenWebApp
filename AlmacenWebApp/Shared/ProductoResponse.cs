@@ -9,4 +9,6 @@ public class ProductoResponse
     public string Codigo { get; set; } = default!;
     public decimal PrecioUnitario { get; set; }
     public string Marca { get; set; } = default!;
+    public string? UrlImagen { get; set; }
+    public string? Descripcion { get; set; }
 }

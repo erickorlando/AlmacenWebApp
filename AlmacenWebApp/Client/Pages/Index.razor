@@ -1,5 +1,81 @@
 ﻿@page "/"
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@using AlmacenWebApp.Shared
 
 <PageTitle>Inicio</PageTitle>
 
-<h1>Sistema de Almacen</h1>
+<h1>Tienda</h1>
+
+@if (Productos is null || Categorias is null)
+{
+    <p>Cargando....</p>
+}
+else
+{
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-2">
+                <label>Categoría:</label>
+                <select class="form-select" @onchange="OnSelectionChange">
+                    <option>-Ver todas-</option>
+                    @foreach (var item in Categorias)
+                    {
+                        <option value="@item.Id" >@item.Nombre</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row gx-4 row-cols-1 row-cols-md-3 row-cols-xl-4 justify-content-start">
+            @if (Categorias is not null)
+            {
+                var filter = Productos;
+                if (CategoriaSeleccionada is {} number)
+                {
+                    filter = Productos.Where(p => p.CategoriaId == number).ToList();
+                }
+                @foreach (var item in filter)
+                {
+                    <ProductoCard Producto="item" OnClick="VerProducto"/>
+                }
+            }
+        </div>
+    </div>
+}
+
+@code
+{
+    public ICollection<ProductoResponse>? Productos { get; set; }
+    public ICollection<CategoriaResponse>? Categorias { get; set; }
+
+    public int? CategoriaSeleccionada { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarLista();
+    }
+
+    private async Task CargarLista()
+    {
+        Productos = await HttpClient.GetFromJsonAsync<ICollection<ProductoResponse>>("api/productos");
+
+        Categorias = await HttpClient.GetFromJsonAsync<ICollection<CategoriaResponse>>("api/Categorias");
+    }
+
+    private void VerProducto(int id)
+    {
+        NavigationManager.NavigateTo($"/detalle/{id}");
+    }
+
+    private void OnSelectionChange(ChangeEventArgs args)
+    {
+        if (args.Value!.ToString()!.Contains("-"))
+        {
+            CategoriaSeleccionada = null;
+        }
+        else
+        {
+            CategoriaSeleccionada = int.Parse(args.Value.ToString()!);
+        }
+    }
+}

@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlmacenWebApp.Client", "Alm
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlmacenWebApp.Shared", "AlmacenWebApp\Shared\AlmacenWebApp.Shared.csproj", "{535407F7-9E43-4FE1-95C5-25467AABC1DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlmacenWebApp.Entidades", "AlmacenWebApp.Entidades\AlmacenWebApp.Entidades.csproj", "{1237DB33-E366-4912-A22D-37C291E10FC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlmacenWebApp.Entidades", "AlmacenWebApp.Entidades\AlmacenWebApp.Entidades.csproj", "{1237DB33-E366-4912-A22D-37C291E10FC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

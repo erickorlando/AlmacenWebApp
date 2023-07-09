@@ -4,80 +4,92 @@
 
 <EditForm Model="Producto" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
-    
-    <div class="mb-3 row">
-        <label for="categoria">Categoria:</label>
-        <div class="col-sm-8">
-            <InputSelect class="form-select" id="categoria" @bind-Value="Producto.CategoriaId">
-                <option>-Seleccione una categoria-</option>
-                @foreach (var item in Categorias)
-                {
-                    <option value="@item.Id">@item.Nombre</option>
-                }
-            </InputSelect>
-        </div>
-    </div>
-    
-    <div class="mb-3 row">
-        <label for="marca">Marca:</label>
-        <div class="col-sm-8">
-            <InputSelect class="form-select" id="marca" @bind-Value="Producto.MarcaId">
-                <option>-Seleccione una Marca-</option>
-                @foreach (var item in Marcas)
-                {
-                    <option value="@item.Id">@item.Descripcion</option>
-                }
-            </InputSelect>
-        </div>
-    </div>
-    
-    <div class="mb-3 row">
-        <div class="col-sm-8">
-            <label for="codigo">Código:</label>
-            <InputText class="form-control" id="codigo" @bind-Value="Producto.Codigo"/>
-            <ValidationMessage For="@(() => Producto.Codigo)"></ValidationMessage>
-        </div>
-    </div>
-
-    <div class="mb-3 row">
-        <div class="col-sm-8">
-            <label for="nombre">Nombre:</label>
-            <InputText class="form-control" id="nombre" @bind-Value="Producto.Nombre"/>
-            <ValidationMessage For="@(() => Producto.Nombre)"></ValidationMessage>
-        </div>
-    </div>
-  
-    <div class="mb-3 row">
-        <div class="col-sm-8">
-            <label for="precio">Precio Unitario:</label>
-            <InputNumber class="form-control" id="precio" @bind-Value="Producto.PrecioUnitario"/>
-            <ValidationMessage For="@(() => Producto.PrecioUnitario)"></ValidationMessage>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-body">
-            @if (Producto.Base64Imagen is not null)
-            {
-                <div style="margin:10px">
-                    <img src="data:image/jpeg;base64,@Producto.Base64Imagen" alt="@Producto.Nombre" style="width: 300px"/>
+    <div class="row row-cols-1 row-cols-md-2 g-2">
+        <div class="col">
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-md-4 col-form-label" for="categoria">Categoria:</label>
+                <div class="col-sm-6 col-md-9">
+                    <InputSelect class="form-select" id="categoria" @bind-Value="Producto.CategoriaId">
+                        <option>-Seleccione una categoria-</option>
+                        @foreach (var item in Categorias)
+                        {
+                            <option value="@item.Id">@item.Nombre</option>
+                        }
+                    </InputSelect>
                 </div>
-            }
-            else
-            {
-                <img src="@Producto.UrlImagen" alt="@Producto.Nombre" style="width: 300px"/>    
-            }
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-md-4 col-form-label" for="marca">Marca:</label>
+                <div class="col-sm-6 col-md-9">
+                    <InputSelect class="form-select" id="marca" @bind-Value="Producto.MarcaId">
+                        <option>-Seleccione una Marca-</option>
+                        @foreach (var item in Marcas)
+                        {
+                            <option value="@item.Id">@item.Descripcion</option>
+                        }
+                    </InputSelect>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-md-4 col-form-label" for="codigo">Código:</label>
+                <div class="col-sm-6 col-md-9">
+                    <InputText class="form-control" id="codigo" @bind-Value="Producto.Codigo" />
+                    <ValidationMessage For="@(() => Producto.Codigo)"></ValidationMessage>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-md-4 col-form-label" for="nombre">Nombre:</label>
+                <div class="col-sm-6 col-md-9">
+                    <InputText class="form-control" id="nombre" @bind-Value="Producto.Nombre" />
+                    <ValidationMessage For="@(() => Producto.Nombre)"></ValidationMessage>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-md-4 col-form-label" for="precio">Precio Unitario:</label>
+                <div class="col-sm-6 col-md-9">
+                    <InputNumber class="form-control" id="precio" @bind-Value="Producto.PrecioUnitario" />
+                    <ValidationMessage For="@(() => Producto.PrecioUnitario)"></ValidationMessage>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-md-4 col-form-label" for="descripcion">Descripción:</label>
+                <div class="col-sm-6 col-md-9">
+                    <InputTextArea class="form-control" id="descripcion" @bind-Value="Producto.Descripcion" />
+                    <ValidationMessage For="@(() => Producto.Descripcion)"></ValidationMessage>
+                </div>
+            </div>
         </div>
-        <div class="card-footer">
-            <div>
-                <InputFile id="file" accept="image/png, image/jpeg, .webp" 
-                           OnChange="OnFileUploaded" 
-                           style="display: none"/>
-                <label for="file" class="btn btn-warning"><span class="oi oi-camera-slr"></span>Imagen</label>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    @if (Producto.Base64Imagen is not null)
+                    {
+                        <div style="margin:10px">
+                            <img src="data:image/jpeg;base64,@Producto.Base64Imagen" alt="@Producto.Nombre" style="width: 300px" />
+                        </div>
+                    }
+                    else
+                    {
+                        <img src="@Producto.UrlImagen" alt="@Producto.Nombre" style="width: 300px" />
+                    }
+                </div>
+                <div class="card-footer">
+                    <div>
+                        <InputFile id="file" accept="image/png, image/jpeg, .webp"
+                                   OnChange="OnFileUploaded"
+                                   style="display: none" />
+                        <label for="file" class="btn btn-warning"><span class="oi oi-camera-slr"></span>Imagen</label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    
-   
+
+
     <button type="submit" class="btn btn-primary"><i class="oi oi-plus"></i> Guardar</button>
 </EditForm>

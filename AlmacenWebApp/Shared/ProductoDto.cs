@@ -25,4 +25,6 @@ public class ProductoDto
     #endregion
 
     public string? UrlImagen { get; set; }
+
+    public string? Descripcion { get; set; }
 }

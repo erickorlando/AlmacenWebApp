@@ -1,0 +1,74 @@
+﻿@page "/detalle/{Id:int}"
+@using AlmacenWebApp.Shared
+@inject HttpClient HttpClient
+@inject IToastService ToastService
+@inject NavigationManager NavigationManager
+
+<div class="container px-4 px-lg-5 my-5">
+    @if (Producto is null)
+    {
+        <p class="alert alert-warning">Sin datos para mostrar</p>
+    }
+    else
+    {
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col">
+                @if (!string.IsNullOrEmpty(Producto.UrlImagen))
+                {
+                    <img class="card-img-top border-dark border-1" src="@Producto.UrlImagen" style="width: 100%"/>
+                }
+                else
+                {
+                    <img src="assets/images/producto-sin-imagen.png" style="width: 100%" />
+                }
+            </div>
+            <div class="col">
+                <h1 class="display-5 fw-bolder">@Producto.Nombre</h1>
+                <div class="fs-5 mb-5">
+                    <span>S/. @Producto.PrecioUnitario</span>
+                </div>
+                <p class="lead">@Producto.Descripcion</p>
+                <div class="">
+                    <button class="btn btn-success" @onclick="Comprar">Comprar</button>
+                    <NavLink class="btn btn-outline-dark" href="">Volver</NavLink>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    [Parameter]
+    public ProductoResponse? Producto { get; set; }
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var response = await HttpClient.GetFromJsonAsync<ProductoResponse>($"api/Productos/{Id}");
+        if (response is not null)
+        {
+            Producto = response;
+        }
+    }
+
+    private async Task Comprar()
+    {
+        if (Producto is null) return;
+
+        var request = new VentaDto()
+        {
+            ProductoId = Producto.Id,
+            Precio = Producto.PrecioUnitario
+        };
+
+        await HttpClient.PostAsJsonAsync("api/Ventas", request);
+
+        ToastService.ShowInfo("La venta se ha creado de forma exitosa");
+
+        NavigationManager.NavigateTo("/");
+    }
+}

@@ -9,32 +9,42 @@ else
 {
     <table class="table">
         <thead>
-        <tr>
-            <th>ID</th>
-            <th>Categoria</th>
-            <th>Marca</th>
-            <th>Codigo</th>
-            <th>Nombre</th>
-            <th>Precio Unitario</th>
-            <th></th>
-        </tr>
+            <tr>
+                <th>Imagen</th>
+                <th>Categoria</th>
+                <th>Marca</th>
+                <th>Codigo</th>
+                <th>Nombre</th>
+                <th>Precio Unitario</th>
+                <th></th>
+            </tr>
         </thead>
         <tbody>
-        @foreach (var item in Productos)
-        {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.Categoria</td>
-                <td>@item.Marca</td>
-                <td>@item.Codigo</td>
-                <td>@item.Nombre</td>
-                <td>@item.PrecioUnitario</td>
-                <td>
-                    <button class="btn btn-primary" @onclick="() => Editar(item.Id)"><i class="oi oi-pencil"></i></button>
-                    <button class="btn btn-danger" @onclick="() => Eliminar(item.Id)"><i class="oi oi-trash"></i></button>
-                </td>
-            </tr>
-        }
+            @foreach (var item in Productos)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.UrlImagen))
+                        {
+                            <img src="@item.UrlImagen" width="50" height="50" />
+                        }
+                        else
+                        {
+                            <img src="assets/images/producto-sin-imagen.png" style="width: 50px;height: 50px" />
+                        }
+                    </td>
+                    <td>@item.Id</td>
+                    <td>@item.Categoria</td>
+                    <td>@item.Marca</td>
+                    <td>@item.Codigo</td>
+                    <td>@item.Nombre</td>
+                    <td>@item.PrecioUnitario</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="() => Editar(item.Id)"><i class="oi oi-pencil"></i></button>
+                        <button class="btn btn-danger" @onclick="() => Eliminar(item.Id)"><i class="oi oi-trash"></i></button>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 }

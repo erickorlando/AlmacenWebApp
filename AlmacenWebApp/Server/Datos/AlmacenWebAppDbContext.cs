@@ -15,6 +15,8 @@ public class AlmacenWebAppDbContext : DbContext
     public DbSet<Producto> Productos { get; set; } = null!;
     public DbSet<Marca> Marcas { get; set; } = null!;
 
+    public DbSet<Venta> Ventas { get; set; } = null!;
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -53,5 +55,18 @@ public class AlmacenWebAppDbContext : DbContext
                 new() { Id = 4, Descripcion = "Apple" },
                 new() { Id = 5, Descripcion = "Honor" },
             });
+
+        modelBuilder.Entity<Venta>()
+            .Property(p => p.Precio)
+            .HasPrecision(11, 2);
+
+        modelBuilder.Entity<Venta>()
+            .Property(p => p.NumeroFactura)
+            .HasMaxLength(20);
+
+        modelBuilder.Entity<Venta>()
+            .Property(p => p.FechaVenta)
+            .HasColumnType("date")
+            .HasDefaultValueSql("GETDATE()");
     }
 }
